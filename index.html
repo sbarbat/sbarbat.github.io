@@ -22,8 +22,6 @@
                     <polygon points="50,0 100,0 50,100 0,100" />
                 </svg>
 
-
-
                 <main class="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
                     <div class="sm:text-center lg:text-left">
                         <h1 class="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
@@ -70,6 +68,7 @@
                 <input id="input"
                     x-model="text"
                     x-spread="input"
+                    autofocus
                     class="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                     placeholder="Type here.." />
 
@@ -279,9 +278,18 @@
                     this.phrasePosition = 0;
                     this.keyPosition = 0;
                     this.numberOfPhrase++;
+
+                    this.inputFocus();
+                },
+
+                inputFocus() {
+                    window.setTimeout(function() {
+                        document.getElementById("input").focus();
+                    });
                 }
             }
-
+            
+            app.inputFocus();
             return app.selectNextPhrase();
         }
     </script>
