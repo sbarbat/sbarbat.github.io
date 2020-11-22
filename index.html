@@ -286,11 +286,19 @@
                     window.setTimeout(function() {
                         document.getElementById("input").focus();
                     });
+
+                    return this;
+                },
+
+                init() {
+                    this.selectNextPhrase();
+                    this.inputFocus();
+
+                    return this;
                 }
             }
             
-            app.inputFocus();
-            return app.selectNextPhrase();
+            return app.init();
         }
     </script>
 </body>
