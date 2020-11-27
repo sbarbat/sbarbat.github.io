@@ -223,47 +223,45 @@
                 selectedPhrase: "",
                 input: {
                     ['x-on:keyup'](e) {
+                        let pressedKey = this.pressed[e.keyCode];
+
+                        pressedKey.stop(e);
+                        this.keyArray.push(pressedKey);
+
                         if (this.isAlphaNumeric(e.keyCode)) {
-                            let pressedKey = this.pressed[e.keyCode];
-
-                            pressedKey.stop(e);
-                            this.keyArray.push(pressedKey);
                             this.typedCount++;
+                        }
 
-                            if (this.typedCount >= this.selectedPhrase.length) {
-                                this.text = '';
-                                this.times = this.times + 1;
-                                this.commit();
+                        if (this.typedCount >= this.selectedPhrase.length) {
+                            this.text = '';
+                            this.times = this.times + 1;
+                            this.commit();
 
-                                if (this.times > this.total) {
-                                    this.finish = true;
-                                    this.send();
-                                }
-
-                                timerTimeBetweenKeys.stop();
+                            if (this.times > this.total) {
+                                this.finish = true;
+                                this.send();
                             }
+
+                            timerTimeBetweenKeys.stop();
                         }
                     },
                     ['x-on:keydown'](e) {
-                        if (this.isAlphaNumeric(e.keyCode)) {
-                            this.pressed[e.keyCode] = new KeyPress(e, this.phrasePosition, this.keyPosition++);
+                        this.pressed[e.keyCode] = new KeyPress(e, this.phrasePosition, this.keyPosition++);
 
-                            if (0 === this.keyPosition) {
-                                timerTimeBetweenKeys.stop();
-                                timerTimeBetweenKeys.start();
-                                this.pressed[e.keyCode].beforePress = 0;
-                            } else {
-                                this.pressed[e.keyCode].beforePress = timerTimeBetweenKeys.lap();
-                            }
+                        if (0 === this.keyPosition) {
+                            timerTimeBetweenKeys.stop();
+                            timerTimeBetweenKeys.start();
+                            this.pressed[e.keyCode].beforePress = 0;
+                        } else {
+                            this.pressed[e.keyCode].beforePress = timerTimeBetweenKeys.lap();
                         }
                     }
                 },
 
                 isAlphaNumeric(keyCode) {
-                    return true; // Return all the data, then see if we need to process
-                    // return ((keyCode > 64 && keyCode < 91) || 
-                    //     (keyCode > 96 && keyCode < 123) || 
-                    //     (keyCode > 47 && keyCode < 58));
+                    return ((keyCode > 64 && keyCode < 91) || 
+                        (keyCode > 96 && keyCode < 123) || 
+                        (keyCode > 47 && keyCode < 58));
                 },
 
                 selectNextPhrase() {
