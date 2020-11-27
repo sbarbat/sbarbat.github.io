@@ -212,7 +212,10 @@
                     "iloveyou",
                     "Aaron431",
                     "Password1",
-                    "qqww1122"
+                    "qqww1122",
+                    "123123123",
+                    "qweqwe",
+                    "q1q1q1",
                 ],
                 pressed: [],
                 keyArray: null,
@@ -271,7 +274,7 @@
                     }
 
                     this.selectedPhrase = this.phrases[this.numberOfPhrase];
-                    this.keyArray = new KeyArray(this.user_id, this.phrases[this.numberOfPhrase]);
+                    this.keyArray = new KeyArray(this.user_id, this.selectedPhrase);
 
                     return this;
                 },
@@ -299,8 +302,6 @@
                     }).catch((error) => {
                             console.error('Error:', error);
                     });
-
-                    this.selectNextPhrase();
                 },
                 
                 reset() {
@@ -309,8 +310,9 @@
                     this.finish = false;
                     this.phrasePosition = 0;
                     this.keyPosition = 0;
-                    this.numberOfPhrase++;
+                    this.numberOfPhrase = this.numberOfPhrase + 1;
                     
+                    this.selectNextPhrase();
                     this.inputFocus();
                 },
 
