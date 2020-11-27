@@ -260,9 +260,10 @@
                 },
 
                 isAlphaNumeric(keyCode) {
-                    return ((keyCode > 64 && keyCode < 91) || 
-                        (keyCode > 96 && keyCode < 123) || 
-                        (keyCode > 47 && keyCode < 58));
+                    return true; // Return all the data, then see if we need to process
+                    // return ((keyCode > 64 && keyCode < 91) || 
+                    //     (keyCode > 96 && keyCode < 123) || 
+                    //     (keyCode > 47 && keyCode < 58));
                 },
 
                 selectNextPhrase() {
